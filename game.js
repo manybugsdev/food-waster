@@ -501,7 +501,8 @@ function throwFood(thrower, isPlayer) {
         const targetPos = player.position.clone();
         targetPos.y += 1;
         
-        // Add prediction based on player movement
+        // CPU predicts player movement based on observed input keys
+        // This is intentional - CPU can "see" player moving and predict their trajectory
         if (keys['KeyW'] || keys['KeyS'] || keys['KeyA'] || keys['KeyD']) {
             const prediction = new THREE.Vector3();
             if (keys['KeyW']) prediction.z -= 0.5;
@@ -844,11 +845,11 @@ function endGame(playerWon) {
     if (playerWon) {
         title.textContent = '🎉 勝利！ 🎉';
         title.style.color = '#00ff88';
-        message.textContent = `おめでとう！CPUを倒しました！\nスコア: ${playerScore}`;
+        message.innerHTML = `おめでとう！CPUを倒しました！<br>スコア: ${playerScore}`;
     } else {
         title.textContent = '💔 敗北... 💔';
         title.style.color = '#ff6666';
-        message.textContent = `残念！CPUに負けました...\nスコア: ${playerScore}`;
+        message.innerHTML = `残念！CPUに負けました...<br>スコア: ${playerScore}`;
     }
     
     gameOverDiv.style.display = 'block';
